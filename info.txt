@@ -1,0 +1,7 @@
+url front en local :
+http://localhost:5173/
+pour lancer : npm run dev
+
+url back en local : 
+http://localhost:3000
+pour lancer : nodemon index.js
