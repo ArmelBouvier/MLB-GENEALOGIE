@@ -68,7 +68,12 @@ app.post("/signup", async (req, res) => {
       }
   
       // Crée un token JWT
-      const token = jwt.sign({ email: user.email }, JWT_SECRET, { expiresIn: "1h" });
+      const token = jwt.sign({ 
+        userId: user.id,
+        email: user.email,
+        role: user.role 
+      }, 
+      JWT_SECRET, { expiresIn: "1h" });
   
       res.status(200).json({ message: "Connexion réussie", token });
     } catch (err) {

@@ -23,13 +23,13 @@
     },
     methods: {
         checkAuth() {
-        const token = localStorage.getItem("token");
-        this.isAuthenticated = !!token;
+          const token = localStorage.getItem("token");
+          this.isAuthenticated = !!token;
         },
         logout() {
-        localStorage.removeItem("token");
-        this.isAuthenticated = false;
-        this.$router.push("/");
+          localStorage.removeItem("token");
+          this.isAuthenticated = false;
+          this.$router.push("/");
         }
     },
     watch: {

@@ -53,7 +53,8 @@
           localStorage.setItem("token", data.token);
   
           this.message = "Connexion réussie ! 🎉";
-          this.$router.push("/dashboard");
+          //this.$router.push("/dashboard");
+          this.$router.push("/");
         } catch (err) {
           this.message = err.message;
         }

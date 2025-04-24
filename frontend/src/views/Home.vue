@@ -22,19 +22,48 @@
         </ul>
       </div>
     </section>
+    <div v-if="canEdit">
+      <h2>Éditeur de contenu</h2>
+      <Editor />
+  </div>
   </template>
   
-  <script>
-  export default {
-    name: "Home",
-    methods: {
-      contacter() {
-        alert("Vous pouvez me contacter à jean.dupuis@email.com");
-        // plus tard tu pourras rediriger vers une vraie page ou formulaire
-      },
-    },
-  };
-  </script>
+  <script setup>
+    import Editor from '@/components/Editor.vue'
+    import { jwtDecode } from 'jwt-decode'
+    import { watch, ref, computed, onMounted } from 'vue'
+    import { useRoute } from 'vue-router'
+
+    // État local
+    const role = ref(null)
+    const route = useRoute()
+
+    function decodeToken() {
+      const token = localStorage.getItem('token')
+      if (token) {
+        try {
+          const decoded = jwtDecode(token)
+          role.value = decoded.role
+        } catch {
+          role.value = null
+        }
+      } else {
+        role.value = null
+      }
+    }
+
+    // Récupération du token et décodage
+    onMounted(decodeToken)
+
+    watch(route, () => {
+      decodeToken()
+    })
+
+    // Autorisation d’édition ?
+    const canEdit = computed(() => role.value === 'admin' || role.value === 'editor')
+</script>
+
+
   
   <style scoped>
   .homepage {
